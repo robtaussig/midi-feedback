@@ -1,4 +1,8 @@
-.App {
+.container {
+  margin: 0 auto;
+  width: 80%;
+  clear: both;
   text-align: center;
+  /*overflow: auto;*/
 }
 
