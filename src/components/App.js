@@ -1,10 +1,8 @@
 import React from 'react';
 
-import PressQwerty from './components/pressQwerty'
+import PressQwerty from './pressQwerty'
 // import Header from './components/header'
 // import Qwerty from './components/Qwerty';
-// import {clip, midi} from 'scribbletune';
-// const scribble = require('scribbletune');
 
 import './App.css';
 
