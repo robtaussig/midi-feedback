@@ -1,4 +1,7 @@
-import React from 'react';
+import React from 'react'
+import { connect } from 'react-redux'
+
+import { toggleRecording } from "../actions"
 
 import PressQwerty from './pressQwerty'
 // import Header from './components/header'
@@ -19,7 +22,7 @@ const bhang = scribble.clip({
 	pattern: 'x'
 });
 
-console.log([...c, ...bhang])
+// console.log([...c, ...bhang])
 
 const bytes = scribble.midi([...c, ...bhang], null); // Pass `null` as the second param to get bytes
 const b64 = btoa(bytes); // Encode byte string from Scribbletune as base64
@@ -35,16 +38,19 @@ class App extends React.Component {
 	componentDidMount() {
 	}
 
-	start() {
-		Tone.Transport.start()
+	toggleRecording = () => {
+		if (this.props.isRecording) {
+			this.props.toggleRecording(false)
+			Tone.Transport.stop()
+		} else {
+			this.props.toggleRecording(true)
+			Tone.Transport.start()
+		}
 	}
 
-	stop(){
-		Tone.Transport.stop()
-	}
-
-	downloadMidi() {
-		link.click(); // this will start a download of the MIDI byte string as a file called "music.mid"
+	downloadMidi = () => {
+		console.log(this.props.tune)
+		// link.click(); // this will start a download of the MIDI byte string as a file called "music.mid"
 	}
 
 	render() {
@@ -52,8 +58,7 @@ class App extends React.Component {
 			<div className="container">
 				<PressQwerty />
 				<div className="header">
-					<button onClick={this.start}>Start Recording</button>
-					<button onClick={this.stop} >Stop Recording</button>
+					<button onClick={this.toggleRecording}>{this.props.isRecording ? "Stop" : "Start"}</button>
 					<button onClick={this.downloadMidi} >Download</button>
 				</div>
 				{/*<Qwerty />*/}
@@ -62,6 +67,16 @@ class App extends React.Component {
 	}
 }
 
-export default App;
+const mapStateToProps = (state) => {
+	return {
+		isRecording: state.isRecording,
+		tune: state.tune
+	}
+}
+
+export default connect(
+	mapStateToProps,
+	{ toggleRecording }
+)(App);
 
 

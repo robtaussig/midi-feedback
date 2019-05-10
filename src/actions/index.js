@@ -5,3 +5,10 @@ export const addNoteToTune = (note) => {
 		payload: note
 	}
 }
+
+export const toggleRecording = (bool) => {
+	return {
+		type: 'TOGGLE_RECORDING',
+		payload: bool
+	}
+}

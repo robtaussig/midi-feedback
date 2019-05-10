@@ -29,7 +29,17 @@ const updateTune = (state=[], action) => {
 	}
 }
 
+const toggleIsRecording = (state=false, action) => {
+	switch (action.type)  {
+		case 'TOGGLE_RECORDING':
+			return action.payload
+		default:
+			return state
+	}
+}
+
 export default combineReducers({
 	qwerty: qwertyReducer,
-	tune: updateTune
+	tune: updateTune,
+	isRecording: toggleIsRecording
 })

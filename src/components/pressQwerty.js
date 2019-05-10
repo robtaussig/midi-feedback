@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'  // what would be the benefit of useState for down vs just having the variable?
 import { connect } from 'react-redux'
 
 import { addNoteToTune } from '../actions'
@@ -11,23 +11,35 @@ const PressQwerty = (props) => {
 	const synth = new Tone.Synth({}).toMaster()
 	let down = []
 
-	function onkeydown(e) {
-		// console.log(e.key)
+	// cannot use let, const, var here. seems to be something about onkeyup being reserved on window object
+	// so let's say you code this as: const onkey -
+		// a: note how window object has null for onkeydown. also note error - "useEffect has missing dependency onkey"
+		// b: this causes onkeyup's first console.log to have an undefined startTime value, and so the state tune noteObjects don't get startTime!
+	onkeydown = (e) => {
 		if (noteKeys_All.includes(e.key) && !down.some((obj) => obj.key === e.key) ) {
 			down = [...down, { key: e.key, startTime: Tone.Transport.getSecondsAtTime() } ]
 			synth.triggerAttack(keyToPitch[e.key], Tone.context.currentTime)
 		}
 	}
 
-	function onkeyup(e) {
-		// console.log(e.key)
+	// must use let, const or var here.
+	const addNote = (noteObject) => {
+		// this needs to be defined outside the event listener to access current props
+		if (props.isRecording) {
+			props.addNoteToTune(noteObject)
+		}
+	}
+
+	// console.log happens TWICE, even thought the note is only added once...
+	onkeyup = (e) => {
 		if (noteKeys_All.includes(e.key)) {  // && down etc...?
 			let keyObject = {...down.find((obj) => obj.key === e.key)}
 			let noteObject = { note: keyToPitch[e.key], startTime: keyObject.startTime }
 			noteObject.endTime = Tone.Transport.getSecondsAtTime()
 			down = down.filter(obj => obj.key !== e.key)
 			synth.triggerRelease(null)//keyToPitch[e.key])
-			props.addNoteToTune(noteObject)
+			console.log(noteObject)
+			addNote(noteObject)
 		}
 	}
 
@@ -40,9 +52,14 @@ const PressQwerty = (props) => {
 
 }
 
+const mapStateToProps = (state) => {
+	return {
+		isRecording: state.isRecording
+	}
+}
 
 export default connect(
-	null,
+	mapStateToProps,
 	{ addNoteToTune }
 )(PressQwerty);
 

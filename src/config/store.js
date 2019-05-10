@@ -1,9 +1,4 @@
-import { createStore, combineReducers } from 'redux'
-// import qwertyReducer from '../components/qwertyReducer'
-
-// const rootReducer = combineReducers({
-// 	qwerty: qwertyReducer
-// })
+import { createStore } from 'redux'
 
 import rootReducer from '../reducers'
 
@@ -12,6 +7,6 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 )
 
-console.log(store.getState())
+// console.log(store.getState())
 
 export default store
