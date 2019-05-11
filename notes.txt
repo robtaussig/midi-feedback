@@ -1,0 +1,11 @@
+
+ - add bpm selector (& optional tick?)
+ - add quantization selector (16th, 8th, etc.)
+    - refactor header with those
+    - but you can actually do that later...
+
+ - order tune notes by start time
+ - trim end times
+ - figure math for conversion from seconds
+ - round tune times to bpm quantization
+ - convert to scribble clips

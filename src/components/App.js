@@ -50,6 +50,10 @@ class App extends React.Component {
 
 	downloadMidi = () => {
 		console.log(this.props.tune)
+
+		// let tune = [...this.props.tune].sort()
+			// https://www.geeksforgeeks.org/javascript-array-sort/
+
 		// link.click(); // this will start a download of the MIDI byte string as a file called "music.mid"
 	}
 

@@ -16,6 +16,24 @@ const qwertyReducer = (state=initialState, action) => {
 	}
 }
 
+const setBpm = (state=120, action) => {
+	switch(action.type) {
+		case 'SET_BPM':
+			return action.payload
+		default:
+			return state
+	}
+}
+
+const setQuantization = (state='quarter', action) => {
+	switch(action.type) {
+		case 'SET_QUANTIZATION':
+			return action.payload
+		default:
+			return state
+	}
+}
+
 const updateTune = (state=[], action) => {
 	switch(action.type) {
 		case 'ADD_NOTE_TO_TUNE':
@@ -41,5 +59,7 @@ const toggleIsRecording = (state=false, action) => {
 export default combineReducers({
 	qwerty: qwertyReducer,
 	tune: updateTune,
-	isRecording: toggleIsRecording
+	isRecording: toggleIsRecording,
+	bpm: setBpm,
+	quantization: setQuantization
 })
