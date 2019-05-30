@@ -1,12 +1,19 @@
 
  - add bpm selector (& optional tick?)
  - add quantization selector (16th, 8th, etc.)
-    - refactor header with those
-    - but you can actually do that later...
 
- - order tune notes by start time
- - trim end times
- - figure math for conversion from seconds
- - round tune times to bpm quantization
- - convert to scribble clips
+- get qwerty to light up
 
+
+
+structure:
+    - maybe pressQwerty logic should be a container for Qwerty?
+    - where to put download logic?
+        - maybe in a container for Download button?
+
+
+how much functionality do i want here?
+    - switch sounds
+    - change note octaves
+    - write midi time signatures and bpm
+    - disable qwerty sounds in

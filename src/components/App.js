@@ -6,8 +6,8 @@ import { toggleRecording } from "../actions"
 import PressQwerty from './pressQwerty'
 import { quantizations } from '../config/constants'
 
-// import Header from './components/header'
-// import Qwerty from './components/Qwerty';
+import Header from './Header'
+import Qwerty from './Qwerty';
 
 import './App.css';
 
@@ -16,6 +16,7 @@ const Tone = window.Tone;
 const metronome = new Tone.MembraneSynth({
 	'octaves': 4,
 }).toMaster()
+
 // const player = new Tone.Player({
 // 	'url': './public/resources/sounds/woodblock.mp3'
 // }).toMaster()
@@ -29,26 +30,9 @@ const metronome = new Tone.MembraneSynth({
 
 
 
-// const c = scribble.clip({
-// 	notes: 'c4', // try 'c4- ! gives note: ["C4", "F4", "Bb4", "Eb5"]
-// 	pattern: 'x_'
-// })
-//
-// const bhang = scribble.clip({
-// 	notes: 'b4',
-// 	pattern: 'x'
-// });
-//
-// console.log([...c, ...bhang])
-
-// const bytes = scribble.midi([...c, ...bhang], null); // Pass `null` as the second param to get bytes
-// const b64 = btoa(bytes); // Encode byte string from Scribbletune as base64
-// const uri = 'data:audio/midi;base64,' + b64;
-// const link = document.createElement('a');
-//
-// link.href = uri;
-// link.download = 'music.mid';
-
+/***********************************************************************************************
+ * App
+ ***********************************************************************************************/
 
 class App extends React.Component {
 
@@ -144,11 +128,11 @@ class App extends React.Component {
 		return (
 			<div className="container">
 				<PressQwerty />
-				<div className="header">
-					<button onClick={this.toggleRecording}>{this.props.isRecording ? "Stop" : "Start"}</button>
-					<button onClick={this.downloadMidi} >Download</button>
-				</div>
-				{/*<Qwerty />*/}
+				<Header
+					toggleRecording={this.toggleRecording}
+					downloadMidi={this.downloadMidi}
+				/>
+				<Qwerty />
 			</div>
 		);
 	}

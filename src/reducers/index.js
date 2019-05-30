@@ -25,7 +25,7 @@ const setBpm = (state=120, action) => {
 	}
 }
 
-const setQuantization = (state='quarter', action) => {
+const setQuantization = (state='eighth', action) => {
 	switch(action.type) {
 		case 'SET_QUANTIZATION':
 			return action.payload
