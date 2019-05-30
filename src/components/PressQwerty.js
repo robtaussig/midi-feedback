@@ -29,7 +29,7 @@ const PressQwerty = (props) => {
 	onkeydown = (e) => {
 		if (noteKeys_All.includes(e.key) && !down.some((obj) => obj.key === e.key) ) {
 			down = [...down, { key: e.key, startTime: Tone.Transport.getSecondsAtTime() } ]
-			downKeys.push(e.key)
+			downKeys = [...downKeys, e.key]
 			console.log(downKeys)
 			currentNote = keyToPitch[e.key]
 			synth.triggerAttack(currentNote, Tone.context.currentTime)
@@ -51,7 +51,7 @@ const PressQwerty = (props) => {
 			let noteObject = { note: keyToPitch[e.key], startTime: keyObject.startTime }
 			noteObject.endTime = Tone.Transport.getSecondsAtTime()
 			down = down.filter(obj => obj.key !== e.key)
-			downKeys.filter(key => key !== e.key)
+			downKeys = downKeys.filter(key => key !== e.key)
 			if (currentNote === keyToPitch[e.key]) {
 				synth.triggerRelease(null)//keyToPitch[e.key])
 				// you could build a feature where it returns to play the last previously held note...
