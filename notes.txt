@@ -1,8 +1,9 @@
 
- - add bpm selector (& optional tick?)
- - add quantization selector (16th, 8th, etc.)
-
+TODO
+- bpm selector disables qwerty notes on focus
+- add quantization selector (16th, 8th, etc.)
 - get qwerty to light up
+= grey download box when there's no download
 
 
 

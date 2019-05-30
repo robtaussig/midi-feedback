@@ -3,11 +3,10 @@ import { connect } from 'react-redux'
 
 import { toggleRecording } from "../actions"
 
-import PressQwerty from './pressQwerty'
+import PressQwerty from './PressQwerty'
 import { quantizations } from '../config/constants'
 
 import Header from './Header'
-import Qwerty from './Qwerty';
 
 import './App.css';
 
@@ -127,12 +126,11 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="container">
-				<PressQwerty />
 				<Header
 					toggleRecording={this.toggleRecording}
 					downloadMidi={this.downloadMidi}
 				/>
-				<Qwerty />
+				<PressQwerty />
 			</div>
 		);
 	}

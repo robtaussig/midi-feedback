@@ -1,4 +1,5 @@
 /* see for scss: */
+/*https://codepen.io/QDeltaE/post/creating-a-keyboard-with-flexbox-magic*/
 /*https://codepen.io/QDeltaE/pen/PjXWZr*/
 
 
@@ -41,15 +42,18 @@ a:visited {
   text-align: center;
   line-height: 9vh;
   color: #fff;
-  background: radial-gradient(ellipse at center, #333 0%, #222 100%);
+  /*background: radial-gradient(ellipse at center, #333 0%, #222 100%);*/
+  background: radial-gradient(ellipse at center, #999 0%, #555 100%);
   margin: 0.4vh;
   padding-left: 1%;
   padding-right: 1%;
 }
 #keyboard .row .key.pressed {
-  background: radial-gradient(ellipse at center, #252525 0%, #151515 100%);
-  color: #ddd;
-  text-shadow: 0 0 0.5vh #999;
+  /*background: radial-gradient(ellipse at center, #252525 0%, #151515 100%);*/
+  background: radial-gradient(ellipse at center, #99f 0%, #55b 100%);
+  color: #555;
+  font-weight: bold;
+  /*text-shadow: 0 0 0.5vh #999;*/
 }
 #keyboard .row .key.multi {
   line-height: 4vh;

@@ -1,7 +1,9 @@
+import React from 'react'
 import { useEffect } from 'react'  // what would be the benefit of useState for down vs just having the variable?
 import { connect } from 'react-redux'
 
 import { addNoteToTune } from '../actions'
+import Qwerty from './Qwerty'
 
 const PressQwerty = (props) => {
 
@@ -17,6 +19,7 @@ const PressQwerty = (props) => {
 	}).toMaster()
 
 	let down = []
+	let downKeys = ['q']
 	let currentNote = ''
 
 	// cannot use let, const, var here. seems to be something about onkeyup being reserved on window object
@@ -26,6 +29,8 @@ const PressQwerty = (props) => {
 	onkeydown = (e) => {
 		if (noteKeys_All.includes(e.key) && !down.some((obj) => obj.key === e.key) ) {
 			down = [...down, { key: e.key, startTime: Tone.Transport.getSecondsAtTime() } ]
+			downKeys.push(e.key)
+			console.log(downKeys)
 			currentNote = keyToPitch[e.key]
 			synth.triggerAttack(currentNote, Tone.context.currentTime)
 		}
@@ -46,6 +51,7 @@ const PressQwerty = (props) => {
 			let noteObject = { note: keyToPitch[e.key], startTime: keyObject.startTime }
 			noteObject.endTime = Tone.Transport.getSecondsAtTime()
 			down = down.filter(obj => obj.key !== e.key)
+			downKeys.filter(key => key !== e.key)
 			if (currentNote === keyToPitch[e.key]) {
 				synth.triggerRelease(null)//keyToPitch[e.key])
 				// you could build a feature where it returns to play the last previously held note...
@@ -55,7 +61,7 @@ const PressQwerty = (props) => {
 					// }
 				// here this triggered note never releases. above, you could test on down[down-1].e.key rather than currentNote...?
 			}
-			console.log(noteObject)
+			// console.log(noteObject)
 			addNote(noteObject)
 		}
 	}
@@ -78,7 +84,12 @@ const PressQwerty = (props) => {
 		window.addEventListener('keyup', onkeyup)
 	}, [])
 
-	return null
+
+	return (
+		<>
+			<Qwerty downKeys={downKeys} />
+		</>
+	)
 
 }
 
