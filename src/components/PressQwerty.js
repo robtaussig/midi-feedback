@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react'  // what would be the benefit of useState for down vs just having the variable?
+import { useState, useEffect } from 'react'  // what would be the benefit of useState for down vs just having the variable?
 import { connect } from 'react-redux'
 
 import { addNoteToTune } from '../actions'
@@ -18,8 +18,9 @@ const PressQwerty = (props) => {
 		}
 	}).toMaster()
 
-	let down = []
-	let downKeys = ['q']
+	// let down = []
+	const [down, setDown] = useState([])
+	const [downKeys, setDownKeys] = useState(['q'])
 	let currentNote = ''
 
 	// cannot use let, const, var here. seems to be something about onkeyup being reserved on window object
@@ -28,9 +29,9 @@ const PressQwerty = (props) => {
 		// b: this causes onkeyup's first console.log to have an undefined startTime value, and so the state tune noteObjects don't get startTime!
 	onkeydown = (e) => {
 		if (noteKeys_All.includes(e.key) && !down.some((obj) => obj.key === e.key) ) {
-			down = [...down, { key: e.key, startTime: Tone.Transport.getSecondsAtTime() } ]
-			downKeys = [...downKeys, e.key]
-			console.log(downKeys)
+			setDown([...down, { key: e.key, startTime: Tone.Transport.getSecondsAtTime() } ])
+			setDownKeys([...downKeys, e.key])
+			// console.log(downKeys)
 			currentNote = keyToPitch[e.key]
 			synth.triggerAttack(currentNote, Tone.context.currentTime)
 		}
@@ -50,8 +51,8 @@ const PressQwerty = (props) => {
 			let keyObject = {...down.find((obj) => obj.key === e.key)}
 			let noteObject = { note: keyToPitch[e.key], startTime: keyObject.startTime }
 			noteObject.endTime = Tone.Transport.getSecondsAtTime()
-			down = down.filter(obj => obj.key !== e.key)
-			downKeys = downKeys.filter(key => key !== e.key)
+			setDown(down.filter(obj => obj.key !== e.key))
+			setDownKeys(downKeys.filter(key => key !== e.key))
 			if (currentNote === keyToPitch[e.key]) {
 				synth.triggerRelease(null)//keyToPitch[e.key])
 				// you could build a feature where it returns to play the last previously held note...
@@ -82,7 +83,7 @@ const PressQwerty = (props) => {
 	useEffect(() => {
 		window.addEventListener('keydown', onkeydown)
 		window.addEventListener('keyup', onkeyup)
-	}, [])
+	}, [down, downKeys])
 
 
 	return (

@@ -2,10 +2,15 @@ import React from 'react';
 
 import './qwerty.css';
 
+
+// https://codepen.io/gntsketches/pen/BeGRGL
+// https://codepen.io/gntsketches/pen/GawmLo
+// https://www.reddit.com/r/reactjs/comments/bv26tc/render_on_key_press/
+
 const Qwerty = (props) => {
 
 	const downKeys = props.downKeys
-	console.log(downKeys)
+	// console.log(downKeys)
 
 			return (
 			<div id="qwerty" className="qwerty-player" >

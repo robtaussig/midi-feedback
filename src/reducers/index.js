@@ -16,7 +16,7 @@ const qwertyReducer = (state=initialState, action) => {
 	}
 }
 
-const setBpm = (state=120, action) => {
+const setBpm = (state=60, action) => {
 	switch(action.type) {
 		case 'SET_BPM':
 			return action.payload

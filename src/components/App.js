@@ -22,6 +22,7 @@ const metronome = new Tone.MembraneSynth({
 // const player = new Tone.Player('../../public/resources/sounds/woodblock.mp3').toMaster()
 // console.log(player)
 
+
 	Tone.Transport.scheduleRepeat(function(time) {
 		// player.start(time)
 		metronome.triggerAttackRelease('C2', '8n')
@@ -36,6 +37,7 @@ const metronome = new Tone.MembraneSynth({
 class App extends React.Component {
 
 	componentDidMount() {
+		Tone.Transport.bpm.value = this.props.bpm
 	}
 
 	toggleRecording = () => {
@@ -49,7 +51,10 @@ class App extends React.Component {
 	}
 
 	downloadMidi = () => {
-		console.log(this.props.tune)
+
+		console.log("raw tune", this.props.tune)
+
+		// make sure the tune is sorted by note start times
 
 		let tune = [...this.props.tune]
 		tune.sort((a,b)=>{
@@ -60,10 +65,12 @@ class App extends React.Component {
 				noteObj.endTime = tune[index+1].startTime
 			}
 		})
-		console.log(tune)
-		const quantizationConverter = quantizations[this.props.quantization]/2
-		console.log(quantizationConverter)
+		console.log("start times sorted", tune)
 
+		// Create a new array with notes quantized to the specified values
+
+		const quantizationConverter = quantizations[this.props.quantization]
+		console.log('quantizationConverter', quantizationConverter)
 		let quantizedTune = []
 		tune.forEach((noteObj, index) => {
 			const quantizedNote = { note: noteObj.note}
@@ -71,12 +78,9 @@ class App extends React.Component {
 			quantizedNote.endBeat = Math.round(noteObj.endTime / quantizationConverter)
 			quantizedTune.push(quantizedNote)
 		})
-		console.log(quantizedTune)
+		console.log("quantizedTune", quantizedTune)
 
-		// const first = scribble.clip({
-		// 	notes: quantizedTune[0].note,
-		// 	pattern: 'x'
-		// });
+		//
 
 		function buildScribblePattern(played, count) {
 			let pattern = ''
@@ -93,8 +97,8 @@ class App extends React.Component {
 			return pattern
 		}
 
-		let midiTune = []
 
+		let midiTune = []
 		quantizedTune.forEach((noteObj, index) => {
 
 			let pattern = buildScribblePattern(true, noteObj.endBeat - noteObj.startBeat)
@@ -110,7 +114,7 @@ class App extends React.Component {
 			midiTune = [...midiTune, ...clip]
 
 		})
-		console.log(midiTune)
+		console.log("midiTune", midiTune)
 
 		const bytes = scribble.midi(midiTune, null); // Pass `null` as the second param to get bytes
 		const b64 = btoa(bytes); // Encode byte string from Scribbletune as base64
@@ -140,7 +144,8 @@ const mapStateToProps = (state) => {
 	return {
 		isRecording: state.isRecording,
 		tune: state.tune,
-		quantization: state.quantization
+		quantization: state.quantization,
+		bpm: state.bpm
 	}
 }
 

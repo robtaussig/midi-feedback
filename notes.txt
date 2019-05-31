@@ -3,7 +3,7 @@ TODO
 - bpm selector disables qwerty notes on focus
 - add quantization selector (16th, 8th, etc.)
 - get qwerty to light up
-= grey download box when there's no download
+- grey download box when there's no download
 
 
 
@@ -18,3 +18,20 @@ how much functionality do i want here?
     - change note octaves
     - write midi time signatures and bpm
     - disable qwerty sounds in
+
+
+0: {note: "D2", startBeat: 8, endBeat: 16}
+1: {note: "E2", startBeat: 16, endBeat: 20}
+2: {note: "E2", startBeat: 20, endBeat: 23}
+3: {note: "F2", startBeat: 24, endBeat: 26}
+4: {note: "F2", startBeat: 26, endBeat: 28}
+5: {note: "F2", startBeat: 28, endBeat: 30}
+6: {note: "F2", startBeat: 30, endBeat: 31}
+7: {note: "G2", startBeat: 32, endBeat: 33}
+8: {note: "G2", startBeat: 33, endBeat: 34}
+9: {note: "G2", startBeat: 34, endBeat: 35}
+10: {note: "G2", startBeat: 35, endBeat: 36}
+11: {note: "G2", startBeat: 36, endBeat: 37}
+12: {note: "G2", startBeat: 37, endBeat: 38}
+13: {note: "G2", startBeat: 38, endBeat: 39}
+14: {note: "G2", startBeat: 39, endBeat: 40}
