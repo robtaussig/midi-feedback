@@ -21,7 +21,7 @@ const PressQwerty = (props) => {
 
 	// let down = []
 	const [down, setDown] = useState([])
-	const [downKeys, setDownKeys] = useState(['q'])
+	const [downKeys, setDownKeys] = useState([])
 	let currentNote = ''
 
 	// cannot use let, const, var here. seems to be something about onkeyup being reserved on window object
@@ -29,6 +29,7 @@ const PressQwerty = (props) => {
 		// a: note how window object has null for onkeydown. also note error - "useEffect has missing dependency onkey"
 		// b: this causes onkeyup's first console.log to have an undefined startTime value, and so the state tune noteObjects don't get startTime!
 	onkeydown = (e) => {
+		console.log(e.key)
 		if (noteKeys_All.includes(e.key) && !down.some((obj) => obj.key === e.key) ) {
 			setDown([...down, { key: e.key, startTime: Tone.Transport.getSecondsAtTime() } ])
 			setDownKeys([...downKeys, e.key])
