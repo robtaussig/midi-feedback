@@ -85,7 +85,9 @@ const PressQwerty = (props) => {
 		window.addEventListener('keydown', onkeydown)
 		window.addEventListener('keyup', onkeyup)
 	}, [])
-
+	// note this advice about useEffect, it strangely doesn't seem to apply tho:
+		// https://www.reddit.com/r/reactjs/comments/bv26tc/render_on_key_press/
+		// however it did seem to cause imported synth to get mutiple triggerAttack invocations
 
 	return (
 		<>
