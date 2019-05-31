@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'  // what would be the benefit of useState for down vs just having the variable?
 import { connect } from 'react-redux'
 
+import { synth } from './synth'
 import { addNoteToTune } from '../actions'
 import Qwerty from './Qwerty'
 
@@ -12,11 +13,11 @@ const PressQwerty = (props) => {
 	const keyToPitch = {" ":" ", "z":"C2", "s":"C#2", "x":"D2", "d":"D#2", "c":"E2", "v":"F2", "g":"F#2", "b":"G2", "h":"G#2", "n":"A2", "j":"A#2", "m":"B2", ",":"C3", "q":"C3", "2":"C#3", "w":"D3", "3":"D#3", "e":"E3", "r":"F3", "5":"F#3", "t":"G3", "6":"G#3", "y":"A3", "7":"A#3", "u":"B3", "i":"C4", "9":"C#4", "o":"D4", "0":"D#4", "p":"E4", "[":"F4", "=":"F#4", "]":"G4", "Backspace":"G#4", "\\":"A4" };
 	const Tone = window.Tone
 
-	const synth = new Tone.Synth({
-		'oscillator': {
-			'type': 'sawtooth'
-		}
-	}).toMaster()
+	// const synth = new Tone.Synth({
+	// 	'oscillator': {
+	// 		'type': 'sawtooth'
+	// 	}
+	// }).toMaster()
 
 	// let down = []
 	const [down, setDown] = useState([])
@@ -83,7 +84,7 @@ const PressQwerty = (props) => {
 	useEffect(() => {
 		window.addEventListener('keydown', onkeydown)
 		window.addEventListener('keyup', onkeyup)
-	}, [down, downKeys])
+	}, [])
 
 
 	return (
